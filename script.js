@@ -38,4 +38,21 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-window.onload = () => { };
+// criar função que mostra os itens na tela. com base no retorno da função fetchProducts.
+const addProdutoObj = async () => {
+  // linka com a class ITEMS do HTML.
+    const item = document.querySelector('.items');
+
+  // chama fetchPruducts
+  const solicitando = await fetchProducts('computador'); // PENSAR EM COMO POR O COMPUTADOR !
+  const solicitacaoResults = await solicitando.results;
+ 
+  // desconstruir o retorno de fetchProducts e chamar createProductItemElement.
+  solicitacaoResults.forEach(({ id, title, thumbnail }) => {
+    const produto = { sku: id, name: title, image: thumbnail };
+    item.appendChild(createCartItemElement(produto));
+  });
+};
+addProdutoObj();
+
+window.onload = async () => {}; 
